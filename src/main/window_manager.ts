@@ -7,7 +7,7 @@ export class WindowManager {
   private windows: Map<string, BrowserWindow> = new Map();
 
   constructor(private mainWindowUrl: string) {
-     autoUpdater.checkForUpdates();
+    autoUpdater.checkForUpdates();
   }
 
   reload(): void {
@@ -48,7 +48,7 @@ export class WindowManager {
         preload: join(__dirname, "../renderer/preload.js"),
         ...options.webPreferences,
       },
-    }
+    };
 
     const { height } = screen.getPrimaryDisplay().workAreaSize;
 
@@ -68,7 +68,7 @@ export class WindowManager {
       window.webContents.openDevTools();
     }
 
-    const windowId = `window.${window.id}`
+    const windowId = `window.${window.id}`;
 
     window.on("closed", () => {
       this.windows.delete(windowId);
@@ -86,7 +86,7 @@ export class WindowManager {
     for (const id of Array.from(this.windows.keys())) {
       ids.push(id);
     }
-    console.log({ ids })
+    console.log({ ids });
     return ids;
   }
 
