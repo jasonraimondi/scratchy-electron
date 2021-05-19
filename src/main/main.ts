@@ -1,39 +1,40 @@
-import { join } from "path";
-import { app, BrowserWindow, BrowserWindowConstructorOptions } from "electron";
-import { environment } from "@/config/environment";
+// import "source-map-support/register";
+// import "tsconfig-paths/register";
+// import "dotenv/config";
 
-async function createWindow(windowOptions: Partial<BrowserWindowConstructorOptions> = {}) {
-  const win = new BrowserWindow({
-    title: "Jason's Title",
-    width: 1440,
-    height: 900,
-    frame: !environment.isMac,
-    titleBarStyle: "hidden",
-    resizable: true,
-    backgroundColor: "#FFF",
-    minHeight: 400,
-    minWidth: 500,
-    ...windowOptions,
-    webPreferences: {
-      preload: join(__dirname, "../renderer/preload.js"),
-      ...windowOptions.webPreferences,
-    },
-  });
-  await win.loadFile("index.html");
+import { app } from "electron";
+import { join } from "path";
+
+import { WindowManager } from "./window_manager";
+import { environment } from "./config/environment";
+
+const mainWindowUrl = `file://${join(__dirname, "../../index.html")}`;
+const windowManager = new WindowManager(mainWindowUrl);
+
+export async function openMainWindow() {
+  await windowManager.createWindow();
 }
+
+// export function reloadAllWindows() {
+//   windowManager.reloadAll();
+// }
 
 async function bootstrap() {
   await app.whenReady();
-  await createWindow();
+  await openMainWindow();
 
   app.on("activate", () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+    // On OS X it"s common to re-create a window in the app when the
+    // dock icon is clicked and there are no other windows open.
+    if (environment.isMac) {
+      windowManager.focusOrCreate();
     }
   });
 
   app.on("window-all-closed", () => {
-    if (process.platform !== "darwin") {
+    // On OS X it is common for applications and their menu bar
+    // to stay active until the user quits explicitly with Cmd + Q
+    if (!environment.isMac) {
       app.quit();
     }
   });
