@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "jsx": "react",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "baseUrl": "./",
+    "strict": true,
+    "types": ["node"],
+    "paths": {
+      "@/*": ["src/render/*", "src/main/*"],
+      "root/*": ["/*"]
+    },
+    "allowSyntheticDefaultImports": true
+  }
+}
