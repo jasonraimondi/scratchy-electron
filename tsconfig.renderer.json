@@ -7,6 +7,6 @@
     "outDir": "dist/renderer"
   },
   "include": [
-    "renderer/**/*"
+    "src/renderer/**/*"
   ]
 }

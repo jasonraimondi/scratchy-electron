@@ -7,6 +7,6 @@
     "outDir": "dist/main"
   },
   "include": [
-    "main/**/*"
+    "src/main/**/*"
   ]
 }
