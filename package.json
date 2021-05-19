@@ -1,0 +1,13 @@
+{
+  "name": "scratchy-electron",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jason Raimondi",
+  "devDependencies": {
+    "electron": "^12.0.8",
+    "typescript": "^4.2.4"
+  }
+}
